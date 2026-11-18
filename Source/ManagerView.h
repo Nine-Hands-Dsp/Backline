@@ -153,7 +153,7 @@ namespace pm
             if (auto* d = resource ("Poppins-Regular.ttf", n)) fo.reg = Typeface::createSystemTypefaceFor (d, (size_t) n);
             if (auto* d = resource ("Poppins-Medium.ttf", n)) fo.med = Typeface::createSystemTypefaceFor (d, (size_t) n);
             if (auto* d = resource ("Poppins-Bold.ttf", n)) fo.bold = Typeface::createSystemTypefaceFor (d, (size_t) n);
-            if (auto* d = resource ("logo_white.png", n)) logo = ImageFileFormat::loadFrom (d, (size_t) n);
+            if (auto* d = resource ("backline_logo_white.png", n)) logo = ImageFileFormat::loadFrom (d, (size_t) n);
             menuLnf.f = fo; menuLnf.textScale = 13.0f / 15.0f;
 
             cat.loadLocal();
@@ -204,11 +204,12 @@ namespace pm
         void paint (Graphics& g) override
         {
             g.fillAll (kBg);
-            // marque : logo en grand, BACKLINE en petit dessous
+            // logo NINE HANDS | DSP  BACKLINE (fichier de l'utilisateur)
             if (logo.isValid())
-                g.drawImage (logo, logoRect(), RectanglePlacement::xLeft | RectanglePlacement::yTop);
-            g.setColour (kDim); g.setFont (pf (fo.med, 12.5f).withExtraKerningFactor (0.33f));
-            g.drawText ("BACKLINE", Rectangle<float> (logoRect().getX(), logoRect().getBottom() + 6.0f, 300.0f, 16.0f), Justification::centredLeft);
+            {
+                g.setImageResamplingQuality (Graphics::highResamplingQuality);
+                g.drawImage (logo, logoRect(), RectanglePlacement::xLeft | RectanglePlacement::yMid);
+            }
 
             // recherche
             const auto sr = searchRect().toFloat();
@@ -300,8 +301,8 @@ namespace pm
         //------------------------------------------------------------------ geometrie de l'en-tete
         Rectangle<float> logoRect() const
         {
-            const float w = 300.0f, h = logo.isValid() ? w * (float) logo.getHeight() / (float) logo.getWidth() : 27.0f;
-            return { (float) margin + 2.0f, 22.0f, w, h };
+            const float w = 470.0f, h = logo.isValid() ? w * (float) logo.getHeight() / (float) logo.getWidth() : 23.0f;
+            return { (float) margin + 2.0f, 35.0f - h * 0.5f, w, h };
         }
         using Seg = std::pair<String, Rectangle<float>>;
         std::vector<Seg> makeSegs (const StringArray& names, const Array<int>& counts, float x, float y, float h, bool icons) const
@@ -337,7 +338,7 @@ namespace pm
         {
             const auto s = statusSegs();
             const int right = (int) s.front().second.getX() - 3 - 14;
-            return { jmax (margin + 340, right - 300), 18, jmin (300, right - margin - 340), 34 };
+            return { jmax (margin + 500, right - 300), 18, jmin (300, right - margin - 500), 34 };
         }
         Rectangle<int> folderRect() const
         {

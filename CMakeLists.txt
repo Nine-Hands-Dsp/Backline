@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # Backline (NINE HANDS | DSP), anciennement Plugin manager : application Windows / macOS qui compare les VST3 installes
 # dans un dossier aux dernieres versions publiees sur GitHub, et les installe ou les met a jour.
-project(PluginManager VERSION 1.2.1)
+project(PluginManager VERSION 1.2.2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -37,7 +37,7 @@ juce_add_binary_data(PMData SOURCES
   assets/fonts/Poppins-Regular.ttf
   assets/fonts/Poppins-Medium.ttf
   assets/fonts/Poppins-Bold.ttf
-  assets/logo/logo_white.png
+  assets/logo/backline_logo_white.png
   catalog/plugins.json
   ${CATALOG_IMAGES})
 
