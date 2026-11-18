@@ -31,7 +31,7 @@
 3. Boutons de chaque fiche : flèche (installer en bleu, mettre à jour en orange), coche (installé), corbeille (désinstaller, vers la corbeille du système), **Notice** (PDF). Clic droit : réinstaller, afficher dans le dossier, page GitHub, favoris.
 4. **Install all** installe tous les plugins manquants, **Update all** met à jour tous ceux qui ont une nouvelle version, d'après les filtres affichés (état : All / Installed / Updates / Not installed / Favorites / New ; type : Guitar / Studio / Instrument).
 
-- **Windows** : l'application se lance toujours en administrateur (fenêtre de confirmation de Windows à l'ouverture), pour pouvoir écrire dans `C:\Program Files\Common Files\VST3`.
+- **Windows** : `C:\Program Files\Common Files\VST3` demande les droits administrateur ; si le dossier choisi n'est pas accessible en écriture, l'application propose de se relancer en administrateur.
 - **macOS** : application signée localement ; la ranger dans le dossier **Applications**, puis au premier lancement clic droit sur *Backline.app* > **Ouvrir**.
 - **Mise à jour automatique** : à chaque démarrage, l'application consulte sa propre dernière version sur GitHub. S'il y en a une plus récente, elle la télécharge (après les installations en cours), se ferme et se rouvre toute seule sur la nouvelle version.
 - Fermer le DAW avant de mettre à jour un plugin qu'il utilise.
