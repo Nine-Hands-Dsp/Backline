@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
-# Plugin manager (NINE HANDS | DSP) : application Windows / macOS qui compare les VST3 installes
+# Backline (NINE HANDS | DSP), anciennement Plugin manager : application Windows / macOS qui compare les VST3 installes
 # dans un dossier aux dernieres versions publiees sur GitHub, et les installe ou les met a jour.
-project(PluginManager VERSION 1.1.0)
+project(PluginManager VERSION 1.2.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -22,7 +22,7 @@ else()
 endif()
 
 juce_add_gui_app(PluginManager
-  PRODUCT_NAME "Plugin manager"
+  PRODUCT_NAME "Backline"
   VERSION ${PROJECT_VERSION}
   COMPANY_NAME "NINE HANDS | DSP"
   BUNDLE_ID com.ninehandsdsp.pluginmanager
@@ -43,7 +43,7 @@ juce_add_binary_data(PMData SOURCES
 
 target_compile_definitions(PluginManager PRIVATE
   APP_VERSION="${PROJECT_VERSION}"
-  JUCE_APPLICATION_NAME_STRING="Plugin manager"
+  JUCE_APPLICATION_NAME_STRING="Backline"
   JUCE_APPLICATION_VERSION_STRING="${PROJECT_VERSION}"
   JUCE_WEB_BROWSER=0
   JUCE_USE_CURL=0

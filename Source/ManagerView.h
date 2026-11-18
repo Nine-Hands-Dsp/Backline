@@ -5,7 +5,7 @@
 #include <thread>
 
 //==============================================================================
-// Fenetre de Plugin manager, au style du catalogue de firmwares de FM-9 :
+// Fenetre de Backline, au style du catalogue de firmwares de FM-9 :
 // fiches par famille, filtres (etat + type), installation / mise a jour une par une ou toutes d'un coup.
 //==============================================================================
 namespace pm
@@ -185,7 +185,7 @@ namespace pm
 
             cleanAfterUpdate();
             if (JUCEApplicationBase::getCommandLineParameters().contains ("--after-update"))
-                status = "Plugin manager updated to v" APP_VERSION;
+                status = "Backline updated to v" APP_VERSION;
             setSize (1440, 900);
             if (folder.getFullPathName().isNotEmpty()) { scan (cat, folder); refresh(); }
             else MessageManager::callAsync ([sp = SafePointer<ManagerView> (this)] { if (sp != nullptr) sp->askFolder (true); });
@@ -204,11 +204,11 @@ namespace pm
         void paint (Graphics& g) override
         {
             g.fillAll (kBg);
-            // marque : logo en grand, PLUGIN MANAGER en petit dessous
+            // marque : logo en grand, BACKLINE en petit dessous
             if (logo.isValid())
                 g.drawImage (logo, logoRect(), RectanglePlacement::xLeft | RectanglePlacement::yTop);
             g.setColour (kDim); g.setFont (pf (fo.med, 12.5f).withExtraKerningFactor (0.33f));
-            g.drawText ("PLUGIN MANAGER", Rectangle<float> (logoRect().getX(), logoRect().getBottom() + 6.0f, 300.0f, 16.0f), Justification::centredLeft);
+            g.drawText ("BACKLINE", Rectangle<float> (logoRect().getX(), logoRect().getBottom() + 6.0f, 300.0f, 16.0f), Justification::centredLeft);
 
             // recherche
             const auto sr = searchRect().toFloat();
@@ -397,8 +397,8 @@ namespace pm
         }
         String appChipText() const
         {
-            if (appUpdating) return "Updating Plugin manager to v" + appLatest + "  " + String (roundToInt (appProgress.load() * 100.0f)) + " %";
-            return "Plugin manager v" + appLatest + (appUpdateFailed ? "  -  retry the update" : "  available");
+            if (appUpdating) return "Updating Backline to v" + appLatest + "  " + String (roundToInt (appProgress.load() * 100.0f)) + " %";
+            return "Backline v" + appLatest + (appUpdateFailed ? "  -  retry the update" : "  available");
         }
 
         // nouvelle version de l'application : telechargement, remplacement, puis fermeture et reouverture automatiques
@@ -420,7 +420,7 @@ namespace pm
                     if (ok && relaunchApp (target)) { JUCEApplication::quit(); return; }
                     self->appUpdating = false;
                     self->appUpdateFailed = true;
-                    self->status = "!" + (err.isNotEmpty() ? err : String ("Plugin manager update: cannot restart the application."));
+                    self->status = "!" + (err.isNotEmpty() ? err : String ("Backline update: cannot restart the application."));
                     self->repaint();
                 });
             });
@@ -765,7 +765,7 @@ namespace pm
             if (canWrite (folder)) return true;
            #if JUCE_WINDOWS
             showDialog ("Administrator rights needed",
-                        "Plugin manager cannot write to " + folder.getFullPathName() + ".\nRestart it as administrator to install or remove plugins in this folder.",
+                        "Backline cannot write to " + folder.getFullPathName() + ".\nRestart it as administrator to install or remove plugins in this folder.",
                         { "Cancel", "Restart as administrator" }, 1, -1, [] (int c)
             {
                 if (c != 1) return;
@@ -774,7 +774,7 @@ namespace pm
             });
            #else
             showDialog ("Folder is read-only",
-                        "Plugin manager cannot write to " + folder.getFullPathName() + ".\nChoose a folder you can write to, for example ~/Library/Audio/Plug-Ins/VST3.",
+                        "Backline cannot write to " + folder.getFullPathName() + ".\nChoose a folder you can write to, for example ~/Library/Audio/Plug-Ins/VST3.",
                         { "Cancel", "Change folder..." }, 1, -1, [sp = SafePointer<ManagerView> (this)] (int c) { if (sp != nullptr && c == 1) sp->chooseFolder(); });
            #endif
             return false;
@@ -853,7 +853,7 @@ namespace pm
         {
             const auto def = defaultFolder();
             showDialog (firstRun ? "Choose your VST3 folder" : "Folder not found",
-                        "Plugin manager scans this folder for NINE HANDS | DSP plugins, and installs new plugins and updates in it.\n\n" + def.getFullPathName(),
+                        "Backline scans this folder for NINE HANDS | DSP plugins, and installs new plugins and updates in it.\n\n" + def.getFullPathName(),
                         { "Choose another...", "Use this folder" }, 1, -1, [sp = SafePointer<ManagerView> (this), def] (int c)
             {
                 if (sp == nullptr) return;

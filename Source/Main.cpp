@@ -1,10 +1,10 @@
 #include "ManagerView.h"
 
-// Plugin manager (NINE HANDS | DSP) : application autonome Windows / macOS
+// Backline (NINE HANDS | DSP) : application autonome Windows / macOS
 class PluginManagerApp : public juce::JUCEApplication
 {
 public:
-    const juce::String getApplicationName() override { return "Plugin manager"; }
+    const juce::String getApplicationName() override { return "Backline"; }
     const juce::String getApplicationVersion() override { return APP_VERSION; }
     // une seule fenetre, sauf a la reouverture qui suit une mise a jour (l'ancienne version se ferme a ce moment-la)
     bool moreThanOneInstanceAllowed() override { return getCommandLineParameters().contains ("--after-update"); }
@@ -40,7 +40,7 @@ public:
 
     struct MainWindow : public juce::DocumentWindow
     {
-        MainWindow() : DocumentWindow ("Plugin manager", juce::Colour (0xff13171d), DocumentWindow::allButtons)
+        MainWindow() : DocumentWindow ("Backline", juce::Colour (0xff13171d), DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
             setContentOwned (new pm::ManagerView(), true);

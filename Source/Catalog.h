@@ -5,7 +5,7 @@
 namespace pmplat { std::wstring fileVersion (const std::wstring&); bool relaunchAsAdmin (const std::wstring&); }
 
 //==============================================================================
-// Donnees de Plugin manager : liste des plugins (catalog/plugins.json, copie de celle du depot Download),
+// Donnees de Backline : liste des plugins (catalog/plugins.json, copie de celle du depot Download),
 // dernieres versions publiees sur GitHub, plugins trouves dans le dossier choisi, installation.
 //==============================================================================
 namespace pm
@@ -30,7 +30,10 @@ namespace pm
        #else
         auto d = File::getSpecialLocation (File::userApplicationDataDirectory);
        #endif
-        d = d.getChildFile ("NINE HANDS DSP").getChildFile ("Plugin manager");
+        d = d.getChildFile ("NINE HANDS DSP");
+        const auto old = d.getChildFile ("Plugin manager");     // dossier de l'ancien nom de l'application
+        d = d.getChildFile ("Backline");
+        if (! d.isDirectory() && old.isDirectory()) old.copyDirectoryTo (d);
         d.createDirectory();
         return d;
     }
@@ -173,7 +176,7 @@ namespace pm
         {
             return URL::InputStreamOptions (URL::ParameterHandling::inAddress)
                        .withConnectionTimeoutMs (timeoutMs).withNumRedirectsToFollow (redirects)
-                       .withExtraHeaders ("User-Agent: NineHandsPluginManager/" APP_VERSION "\r\n")
+                       .withExtraHeaders ("User-Agent: NineHandsBackline/" APP_VERSION "\r\n")
                        .withResponseHeaders (headers).withStatusCode (status);
         }
 
@@ -414,10 +417,10 @@ namespace pm
     }
 
     //------------------------------------------------------------------ mise a jour de l'application elle-meme
-    // telecharge la derniere version de Plugin manager, remplace l'application en place et renvoie ce qu'il faut relancer
+    // telecharge la derniere version de Backline, remplace l'application en place et renvoie ce qu'il faut relancer
     inline bool selfUpdate (std::function<void (float)> progress, const std::atomic<bool>& stop, String& err, File& relaunch)
     {
-        const String url = "https://github.com/" + kOwner + "/" + kAppRepo + "/releases/latest/download/Plugin-Manager-"
+        const String url = "https://github.com/" + kOwner + "/" + kAppRepo + "/releases/latest/download/Backline-"
                          + String (isMac ? "macOS" : "Windows") + ".zip";
         auto tmp = dataDir().getChildFile ("AppUpdate");
         tmp.deleteRecursively(); tmp.createDirectory();
@@ -425,9 +428,9 @@ namespace pm
         {
             int status = 0;
             auto s = URL (url).createInputStream (Net::opts (10, 20000, nullptr, &status));
-            if (s == nullptr || status >= 400) { err = "Plugin manager update: download failed" + (status > 0 ? " (HTTP " + String (status) + ")" : String()) + "."; return false; }
+            if (s == nullptr || status >= 400) { err = "Backline update: download failed" + (status > 0 ? " (HTTP " + String (status) + ")" : String()) + "."; return false; }
             FileOutputStream out (zip);
-            if (! out.openedOk()) { err = "Plugin manager update: cannot write the temporary file."; return false; }
+            if (! out.openedOk()) { err = "Backline update: cannot write the temporary file."; return false; }
             const auto total = s->getTotalLength();
             HeapBlock<char> buf (65536);
             int64 got = 0;
@@ -440,41 +443,41 @@ namespace pm
                 if (total > 0) progress (0.9f * (float) got / (float) total);
             }
             out.flush();
-            if (got == 0) { err = "Plugin manager update: empty download."; return false; }
+            if (got == 0) { err = "Backline update: empty download."; return false; }
         }
         const auto stage = tmp.getChildFile ("unzip");
         stage.createDirectory();
        #if JUCE_MAC
         auto run = [] (const StringArray& args) { ChildProcess cp; return cp.start (args) && cp.waitForProcessToFinish (180000) && cp.getExitCode() == 0; };
-        if (! run ({ "/usr/bin/ditto", "-x", "-k", zip.getFullPathName(), stage.getFullPathName() })) { err = "Plugin manager update: cannot unzip."; return false; }
+        if (! run ({ "/usr/bin/ditto", "-x", "-k", zip.getFullPathName(), stage.getFullPathName() })) { err = "Backline update: cannot unzip."; return false; }
         File fresh;
         for (auto& c : stage.findChildFiles (File::findDirectories, false, "*.app")) { fresh = c; break; }
         const auto app = File::getSpecialLocation (File::currentApplicationFile);
-        if (! fresh.isDirectory() || ! app.hasFileExtension ("app")) { err = "Plugin manager update: no application in the download."; return false; }
+        if (! fresh.isDirectory() || ! app.hasFileExtension ("app")) { err = "Backline update: no application in the download."; return false; }
         const auto backup = tmp.getChildFile ("previous.app");
         // l'application en cours est mise de cote, la nouvelle prend sa place
-        if (! run ({ "/bin/mv", app.getFullPathName(), backup.getFullPathName() })) { err = "Plugin manager update: cannot replace " + app.getFullPathName() + "."; return false; }
+        if (! run ({ "/bin/mv", app.getFullPathName(), backup.getFullPathName() })) { err = "Backline update: cannot replace " + app.getFullPathName() + "."; return false; }
         if (! run ({ "/bin/mv", fresh.getFullPathName(), app.getFullPathName() }))
         {
             run ({ "/bin/mv", backup.getFullPathName(), app.getFullPathName() });
-            err = "Plugin manager update: cannot install the new version."; return false;
+            err = "Backline update: cannot install the new version."; return false;
         }
         run ({ "/usr/bin/xattr", "-cr", app.getFullPathName() });
         relaunch = app;
        #elif JUCE_WINDOWS
         {
             ZipFile z (zip);
-            if (z.getNumEntries() == 0 || z.uncompressTo (stage, true).failed()) { err = "Plugin manager update: cannot unzip."; return false; }
+            if (z.getNumEntries() == 0 || z.uncompressTo (stage, true).failed()) { err = "Backline update: cannot unzip."; return false; }
         }
         File fresh;
         for (auto& c : stage.findChildFiles (File::findFiles, true, "*.exe")) { fresh = c; break; }
         const auto exe = File::getSpecialLocation (File::currentExecutableFile);
-        if (! fresh.existsAsFile()) { err = "Plugin manager update: no application in the download."; return false; }
+        if (! fresh.existsAsFile()) { err = "Backline update: no application in the download."; return false; }
         // un .exe en cours d'execution ne peut pas etre ecrase, mais il peut etre renomme
         const auto old = exe.getSiblingFile (exe.getFileName() + ".old");
         old.deleteFile();
-        if (! exe.moveFileTo (old)) { err = "Plugin manager update: cannot replace " + exe.getFullPathName() + "."; return false; }
-        if (! fresh.copyFileTo (exe)) { old.moveFileTo (exe); err = "Plugin manager update: cannot install the new version."; return false; }
+        if (! exe.moveFileTo (old)) { err = "Backline update: cannot replace " + exe.getFullPathName() + "."; return false; }
+        if (! fresh.copyFileTo (exe)) { old.moveFileTo (exe); err = "Backline update: cannot install the new version."; return false; }
         relaunch = exe;
        #else
         ignoreUnused (relaunch, stage);

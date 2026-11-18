@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h1 align="center">• Plugin manager •</h1>
+<h1 align="center">• Backline •</h1>
 
 <p align="center">
   Application Windows et macOS qui scanne le dossier de vos VST3, compare chaque plugin NINE HANDS | DSP<br>
@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Plugin-Manager-Windows.zip"><img alt="Télécharger pour Windows" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
-  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Plugin-Manager-macOS.zip"><img alt="Télécharger pour macOS" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-macOS-000000?style=for-the-badge&logo=apple&logoColor=white"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Backline-Windows.zip"><img alt="Télécharger pour Windows" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Backline-macOS.zip"><img alt="Télécharger pour macOS" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-macOS-000000?style=for-the-badge&logo=apple&logoColor=white"></a>
   <br>
   <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest"><img alt="Dernière version" src="https://img.shields.io/github/v/release/Nine-Hands-Dsp/Plugin-Manager?style=flat-square&label=version&color=919496"></a>
 </p>
@@ -32,7 +32,7 @@
 4. **Install all** installe tous les plugins manquants, **Update all** met à jour tous ceux qui ont une nouvelle version, d'après les filtres affichés (état : All / Installed / Updates / Not installed / Favorites / New ; type : Guitar / Studio / Instrument).
 
 - **Windows** : l'application se lance toujours en administrateur (fenêtre de confirmation de Windows à l'ouverture), pour pouvoir écrire dans `C:\Program Files\Common Files\VST3`.
-- **macOS** : application signée localement ; la ranger dans le dossier **Applications**, puis au premier lancement clic droit sur *Plugin manager.app* > **Ouvrir**.
+- **macOS** : application signée localement ; la ranger dans le dossier **Applications**, puis au premier lancement clic droit sur *Backline.app* > **Ouvrir**.
 - **Mise à jour automatique** : à chaque démarrage, l'application consulte sa propre dernière version sur GitHub. S'il y en a une plus récente, elle la télécharge (après les installations en cours), se ferme et se rouvre toute seule sur la nouvelle version.
 - Fermer le DAW avant de mettre à jour un plugin qu'il utilise.
 
