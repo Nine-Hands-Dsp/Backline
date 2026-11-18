@@ -852,7 +852,8 @@ namespace pm
             checking = true; status = {};
             if (checker.joinable()) checker.join();
             StringArray repos; for (auto& p : cat.plugins) repos.add (p.repo);
-            checker = std::thread ([this, repos]
+            SafePointer<ManagerView> self (this);
+            checker = std::thread ([this, self, repos]
             {
                 String json; StringArray names = repos;
                 {
@@ -885,7 +886,7 @@ namespace pm
                     while (pool.getNumJobs() > 0) Thread::sleep (30);
                 }
                 const auto app = stopFlag ? String() : Net::latestTag (kAppRepo);
-                MessageManager::callAsync ([sp = SafePointer<ManagerView> (this), json, tags, app]
+                MessageManager::callAsync ([sp = self, json, tags, app]
                 {
                     if (sp == nullptr) return;
                     if (json.isNotEmpty() && json != Catalog::cacheFile().loadFileAsString())
