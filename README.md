@@ -13,10 +13,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Backline-Windows.zip"><img alt="Télécharger pour Windows" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
-  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Backline-macOS.zip"><img alt="Télécharger pour macOS" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-macOS-000000?style=for-the-badge&logo=apple&logoColor=white"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Backline/releases/latest/download/Backline-Windows.zip"><img alt="Télécharger pour Windows" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Backline/releases/latest/download/Backline-macOS.zip"><img alt="Télécharger pour macOS" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-macOS-000000?style=for-the-badge&logo=apple&logoColor=white"></a>
   <br>
-  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest"><img alt="Dernière version" src="https://img.shields.io/github/v/release/Nine-Hands-Dsp/Plugin-Manager?style=flat-square&label=version&color=919496"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Backline/releases/latest"><img alt="Dernière version" src="https://img.shields.io/github/v/release/Nine-Hands-Dsp/Backline?style=flat-square&label=version&color=919496"></a>
 </p>
 
 ---

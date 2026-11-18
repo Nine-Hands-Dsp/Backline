@@ -13,8 +13,8 @@ namespace pm
     using namespace juce;
 
     const String kOwner = "Nine-Hands-Dsp";
-    const String kAppRepo = "Plugin-Manager";
-    const String kRaw = "https://raw.githubusercontent.com/Nine-Hands-Dsp/Plugin-Manager/main/catalog/";
+    const String kAppRepo = "Backline";
+    const String kRaw = "https://raw.githubusercontent.com/Nine-Hands-Dsp/Backline/main/catalog/";
 
    #if JUCE_MAC
     constexpr bool isMac = true;
