@@ -1,0 +1,82 @@
+name: Build Plugin manager
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v5
+      - name: Configure
+        run: cmake -B build -G "Visual Studio 17 2022" -A x64
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Archive
+        shell: pwsh
+        run: Compress-Archive -Path "build/PluginManager_artefacts/Release/Plugin manager.exe" -DestinationPath Plugin-Manager-Windows.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Plugin-Manager-Windows
+          path: Plugin-Manager-Windows.zip
+          if-no-files-found: error
+
+  macos:
+    permissions:
+      contents: write
+    runs-on: macos-15-intel   # comme Octopus et FM-9 ; binaire universel Intel + Apple Silicon
+    steps:
+      - uses: actions/checkout@v5
+      - name: Configure
+        run: cmake -B build -G Xcode -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Signature locale (ad hoc) et archive
+        run: |
+          cd "build/PluginManager_artefacts/Release"
+          xattr -cr "Plugin manager.app"
+          codesign --force --deep --sign - "Plugin manager.app"
+          codesign --verify --deep --strict "Plugin manager.app"
+          ditto -c -k --sequesterRsrc --keepParent "Plugin manager.app" "$GITHUB_WORKSPACE/Plugin-Manager-macOS.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Plugin-Manager-macOS
+          path: Plugin-Manager-macOS.zip
+          if-no-files-found: error
+      - name: Ajout a la version publiee
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v$(sed -n 's/^project([A-Za-z0-9_]* VERSION \([0-9.]*\).*/\1/p' CMakeLists.txt)"
+          for i in $(seq 1 40); do gh release view "$TAG" >/dev/null 2>&1 && break; sleep 30; done     # la version Windows est publiee d'abord
+          gh release upload "$TAG" Plugin-Manager-macOS.zip --clobber
+
+  # Publie la version (tag v<VERSION de CMakeLists>) ; fichiers a nom fixe pour les liens .../releases/latest/download/...
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: [windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - name: Version
+        id: v
+        run: echo "version=$(sed -n 's/^project([A-Za-z0-9_]* VERSION \([0-9.]*\).*/\1/p' CMakeLists.txt)" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        with:
+          name: Plugin-Manager-Windows
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v${{ steps.v.outputs.version }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" Plugin-Manager-Windows.zip --clobber
+          else
+            gh release create "$TAG" Plugin-Manager-Windows.zip --target "$GITHUB_SHA" --latest \
+              --title "Plugin manager $TAG" \
+              --notes "Windows : dezipper et lancer Plugin manager.exe. macOS : dezipper, puis clic droit > Ouvrir sur Plugin manager.app la premiere fois."
+          fi

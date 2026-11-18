@@ -1,0 +1,56 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/NineHands_LogoPP_v003_FullWhite.svg">
+    <img src="assets/logo/NineHands_LogoPP_v003_FullBlack.svg" alt="NINE HANDS | DSP" width="520">
+  </picture>
+</p>
+
+<h1 align="center">• Plugin manager •</h1>
+
+<p align="center">
+  Application Windows et macOS qui scanne le dossier de vos VST3, compare chaque plugin NINE HANDS | DSP<br>
+  à sa dernière version publiée sur GitHub, et l'installe ou le met à jour, un par un ou tous d'un coup.
+</p>
+
+<p align="center">
+  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Plugin-Manager-Windows.zip"><img alt="Télécharger pour Windows" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
+  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest/download/Plugin-Manager-macOS.zip"><img alt="Télécharger pour macOS" src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-macOS-000000?style=for-the-badge&logo=apple&logoColor=white"></a>
+  <br>
+  <a href="https://github.com/Nine-Hands-Dsp/Plugin-Manager/releases/latest"><img alt="Dernière version" src="https://img.shields.io/github/v/release/Nine-Hands-Dsp/Plugin-Manager?style=flat-square&label=version&color=919496"></a>
+</p>
+
+---
+
+## Utilisation
+
+1. Au premier lancement, choisir le dossier des VST3 (proposé par défaut : `C:\Program Files\Common Files\VST3` sur Windows, `~/Library/Audio/Plug-Ins/VST3` sur macOS). Le bouton **Change folder…** permet d'en changer.
+2. Chaque fiche indique la version installée et la dernière version publiée :
+   - **up to date** (vert) : à jour ;
+   - **v4.2.1 → v4.3.0** (orange, bandeau **UPDATE**) : mise à jour disponible ;
+   - **Not installed** (vignette grisée) : pas encore installé.
+3. Boutons de chaque fiche : flèche (installer en bleu, mettre à jour en orange), coche (installé), corbeille (désinstaller, vers la corbeille du système), **Notice** (PDF). Clic droit : réinstaller, afficher dans le dossier, page GitHub, favoris.
+4. **Install all** installe tous les plugins manquants, **Update all** met à jour tous ceux qui ont une nouvelle version, d'après les filtres affichés (état : All / Installed / Updates / Not installed / Favorites / New ; type : Guitar / Studio / Instrument).
+
+- **Windows** : `C:\Program Files\Common Files\VST3` demande les droits administrateur ; l'application propose de se relancer en administrateur quand c'est nécessaire.
+- **macOS** : application signée localement ; au premier lancement, clic droit sur *Plugin manager.app* > **Ouvrir**.
+- Fermer le DAW avant de mettre à jour un plugin qu'il utilise.
+
+## Fonctionnement
+
+- **Plugins installés** : `Contents/Resources/moduleinfo.json` de chaque `.vst3` (nom, version, fabricant), sinon `Info.plist` (macOS) ou la version du fichier (Windows). Les plugins d'autres fabricants sont ignorés.
+- **Dernières versions** : la Release `latest` de chaque dépôt `Nine-Hands-Dsp/<dépôt>`.
+- **Téléchargements** : `releases/latest/download/<Plugin>-VST3-Windows.zip` / `-macOS.zip` de chaque dépôt.
+- **Liste des plugins** : `catalog/plugins.json` et `catalog/img/<dépôt>.jpg`, copiés du dépôt Download. L'application lit la liste en ligne à chaque démarrage (nouveaux plugins visibles sans nouvelle version de l'application) et garde une copie intégrée.
+
+## Mise à jour de la liste (à chaque nouvelle version d'un plugin ou nouveau plugin)
+
+Après la mise à jour du dépôt Download :
+
+```
+python3 tools/sync_catalog.py <chemin du dépôt Download>
+git add catalog && git commit -m "Liste des plugins" && git push
+```
+
+## Build
+
+CMake + JUCE 8 (téléchargé automatiquement). Les builds Windows et macOS (universel) tournent sur GitHub Actions et publient la Release `v<version>` (version dans `CMakeLists.txt`).
