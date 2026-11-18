@@ -277,10 +277,12 @@ namespace pm
     {
         static File file() { return dataDir().getChildFile ("Installed.json"); }
         static var load() { auto v = JSON::parse (file()); return v.isObject() ? v : var (new DynamicObject()); }
-        static void set (const String& repo, const File& bundle, const String& version)
+        // version : celle de la Release installee ; reported : celle que le plugin annonce lui-meme (parfois en retard d'un numero)
+        static void set (const String& repo, const File& bundle, const String& version, const String& reported)
         {
             auto v = load();
             auto* o = new DynamicObject(); o->setProperty ("bundle", bundle.getFullPathName()); o->setProperty ("version", version);
+            o->setProperty ("reported", reported);
             v.getDynamicObject()->setProperty (repo, var (o));
             file().replaceWithText (JSON::toString (v));
         }
@@ -314,13 +316,15 @@ namespace pm
                 if (! keys.contains (normalise (f.name)) && ! keys.contains (normalise (f.bundle.getFileNameWithoutExtension()))) continue;
                 if (! p.bundle.exists() || compareVersions (f.version, p.installedVersion) > 0) { p.bundle = f.bundle; p.installedVersion = f.version; }
             }
-            // installe par l'application : chemin connu, version notee a l'installation si le plugin ne la donne pas
+            // installe par l'application : la version de la Release installee fait foi tant que le plugin n'a pas change
+            // (certains plugins annoncent un numero de moins que leur Release : sans cela, la mise a jour serait proposee sans fin)
             const auto m = man.getProperty (p.repo, var());
             if (m.isObject())
             {
                 const File b (m["bundle"].toString());
                 if (! p.bundle.exists() && b.exists() && b.isAChildOf (folder)) p.bundle = b;
-                if (p.bundle == b && p.installedVersion.isEmpty()) p.installedVersion = m["version"].toString();
+                if (p.bundle == b && (p.installedVersion.isEmpty() || p.installedVersion == m["reported"].toString()))
+                    p.installedVersion = m["version"].toString();
             }
         }
     }
@@ -403,7 +407,7 @@ namespace pm
        #if JUCE_MAC
         { ChildProcess cp; if (cp.start (StringArray { "/usr/bin/xattr", "-cr", dest.getFullPathName() })) cp.waitForProcessToFinish (30000); }
        #endif
-        Manifest::set (p.repo, dest, p.latestVersion());
+        Manifest::set (p.repo, dest, p.latestVersion(), readBundle (dest).version);
         tmp.deleteRecursively();
         progress (1.0f);
         return true;
