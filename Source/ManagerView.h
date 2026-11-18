@@ -183,6 +183,9 @@ namespace pm
             viewport.getVerticalScrollBar().setColour (ScrollBar::thumbColourId, kFaint);
             list.owner = this;
 
+            cleanAfterUpdate();
+            if (JUCEApplicationBase::getCommandLineParameters().contains ("--after-update"))
+                status = "Plugin manager updated to v" APP_VERSION;
             setSize (1440, 900);
             if (folder.getFullPathName().isNotEmpty()) { scan (cat, folder); refresh(); }
             else MessageManager::callAsync ([sp = SafePointer<ManagerView> (this)] { if (sp != nullptr) sp->askFolder (true); });
@@ -194,6 +197,7 @@ namespace pm
             stopFlag = true;
             if (checker.joinable()) checker.join();
             if (installer.joinable()) installer.join();
+            if (updater.joinable()) updater.join();
         }
 
         //------------------------------------------------------------------ dessin
@@ -274,6 +278,11 @@ namespace pm
         std::thread checker;
         std::atomic<bool> stopFlag { false }, checking { false };
         Time checkedAt; String appLatest;
+        // mise a jour de l'application elle-meme
+        std::thread updater;
+        std::atomic<bool> appUpdating { false };
+        std::atomic<float> appProgress { 0.0f };
+        bool appUpdateFailed = false;
         // installation (file d'attente)
         std::thread installer;
         CriticalSection qLock;
@@ -386,10 +395,42 @@ namespace pm
             }
             return b;
         }
+        String appChipText() const
+        {
+            if (appUpdating) return "Updating Plugin manager to v" + appLatest + "  " + String (roundToInt (appProgress.load() * 100.0f)) + " %";
+            return "Plugin manager v" + appLatest + (appUpdateFailed ? "  -  retry the update" : "  available");
+        }
+
+        // nouvelle version de l'application : telechargement, remplacement, puis fermeture et reouverture automatiques
+        void maybeSelfUpdate()
+        {
+            if (appLatest.isEmpty() || compareVersions (APP_VERSION, appLatest) >= 0 || appUpdating || appUpdateFailed) return;
+            if (current().isNotEmpty() || queuedCount() > 0) return;      // attend la fin des installations en cours
+            if (updater.joinable()) updater.join();
+            appUpdating = true; appProgress = 0.0f; status = {};
+            SafePointer<ManagerView> self (this);
+            updater = std::thread ([this, self]
+            {
+                String err; File target;
+                const bool ok = pm::selfUpdate ([this] (float f) { appProgress = f; }, stopFlag, err, target);
+                if (stopFlag) return;
+                MessageManager::callAsync ([self, ok, err, target]
+                {
+                    if (self == nullptr) return;
+                    if (ok && relaunchApp (target)) { JUCEApplication::quit(); return; }
+                    self->appUpdating = false;
+                    self->appUpdateFailed = true;
+                    self->status = "!" + (err.isNotEmpty() ? err : String ("Plugin manager update: cannot restart the application."));
+                    self->repaint();
+                });
+            });
+            repaint();
+        }
+
         Rectangle<float> appUpdateRect() const
         {
             if (appLatest.isEmpty() || compareVersions (APP_VERSION, appLatest) >= 0) return {};
-            const auto t = "Plugin manager v" + appLatest + " available";
+            const auto t = appChipText();
             const float w = GlyphArrangement::getStringWidth (pf (fo.med, 12.0f), t) + 28.0f;
             return { footerButtons().front().r.getX() - 14.0f - w, (float) getHeight() - footerH + 18.0f, w, 26.0f };
         }
@@ -408,7 +449,7 @@ namespace pm
             {
                 g.setColour (kOrange.withAlpha (hotHeader == 300 ? 0.25f : 0.12f)); g.fillRoundedRectangle (ar, 13.0f);
                 g.setColour (kOrange); g.drawRoundedRectangle (ar.reduced (0.5f), 13.0f, 1.0f);
-                g.setFont (pf (fo.med, 12.0f)); g.drawText ("Plugin manager v" + appLatest + " available", ar, Justification::centred);
+                g.setFont (pf (fo.med, 12.0f)); g.drawText (appChipText(), ar, Justification::centred);
             }
             // etat
             auto sr = Rectangle<float> ((float) margin, (float) getHeight() - footerH, 640.0f, (float) footerH);
@@ -790,6 +831,7 @@ namespace pm
                 if (! errors.isEmpty()) sp->status = "!" + errors[0] + (errors.size() > 1 ? "  (+" + String (errors.size() - 1) + " more)" : String());
                 else sp->status = String (done) + (done == 1 ? " plugin installed" : " plugins installed") + " in " + sp->folder.getFullPathName();
                 sp->repaint();
+                sp->maybeSelfUpdate();
             });
         }
 
@@ -902,6 +944,7 @@ namespace pm
                     sp->checkedAt = Time::getCurrentTime();
                     if (ok == 0 && ! tags.empty()) sp->status = "!GitHub cannot be reached: versions from the built-in list.";
                     sp->rescan();
+                    sp->maybeSelfUpdate();
                 });
             });
         }
@@ -935,14 +978,13 @@ namespace pm
             else if (h == 202) enqueue (visibleWith ([] (const Plugin& p) { return p.hasUpdate(); }));
             else if (h == 203) { if (! checking) { rescan(); refresh(); } }
             else if (h == 204) JUCEApplication::getInstance()->systemRequestedQuit();
-            else if (h == 300)
-                URL ("https://github.com/" + kOwner + "/" + kAppRepo + "/releases/latest/download/Plugin-Manager-" + (isMac ? "macOS" : "Windows") + ".zip").launchInDefaultBrowser();
+            else if (h == 300 && ! appUpdating) { appUpdateFailed = false; maybeSelfUpdate(); }
             if (h >= 0 && h < 20) { settings().saveIfNeeded(); layoutList(); viewport.setViewPosition (0, 0); repaint(); }
         }
 
         void timerCallback() override
         {
-            if (current().isNotEmpty() || checking) { repaint (0, getHeight() - footerH, getWidth(), footerH); list.repaint(); }
+            if (current().isNotEmpty() || checking || appUpdating) { repaint (0, getHeight() - footerH, getWidth(), footerH); list.repaint(); }
         }
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ManagerView)

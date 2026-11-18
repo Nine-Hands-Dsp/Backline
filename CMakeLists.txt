@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # Plugin manager (NINE HANDS | DSP) : application Windows / macOS qui compare les VST3 installes
 # dans un dossier aux dernieres versions publiees sur GitHub, et les installe ou les met a jour.
-project(PluginManager VERSION 1.0.1)
+project(PluginManager VERSION 1.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -60,4 +60,8 @@ target_link_libraries(PluginManager PRIVATE
 
 if(WIN32)
   target_link_libraries(PluginManager PRIVATE version shell32)
+  # toujours lance en administrateur (installation dans C:\Program Files\Common Files\VST3)
+  if(MSVC)
+    target_link_options(PluginManager PRIVATE "/MANIFESTUAC:level='requireAdministrator'")
+  endif()
 endif()

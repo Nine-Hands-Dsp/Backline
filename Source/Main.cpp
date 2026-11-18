@@ -6,7 +6,8 @@ class PluginManagerApp : public juce::JUCEApplication
 public:
     const juce::String getApplicationName() override { return "Plugin manager"; }
     const juce::String getApplicationVersion() override { return APP_VERSION; }
-    bool moreThanOneInstanceAllowed() override { return false; }
+    // une seule fenetre, sauf a la reouverture qui suit une mise a jour (l'ancienne version se ferme a ce moment-la)
+    bool moreThanOneInstanceAllowed() override { return getCommandLineParameters().contains ("--after-update"); }
 
     void initialise (const juce::String& cmd) override
     {
