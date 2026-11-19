@@ -193,6 +193,7 @@ namespace pm
                 return nhs::installedPluginVersion (name, folder);
             };
             sessionView->onClose = [] { JUCEApplication::getInstance()->systemRequestedQuit(); };
+            sessionView->onOpenPlugins = [this] { setTab (0); };
             addChildComponent (*sessionView);
             tab = jlimit (0, 1, settings().getIntValue ("tab", 0));
 
@@ -946,7 +947,7 @@ namespace pm
             if (checkedAt.toMilliseconds() == 0 && ! checking) refresh();
         }
 
-        void rescan() { scan (cat, folder); layoutList(); resized(); repaint(); if (sessionView != nullptr) sessionView->repaint(); }
+        void rescan() { scan (cat, folder); layoutList(); resized(); repaint(); if (sessionView != nullptr) sessionView->refreshPluginStatus(); }
 
         // liste en ligne, visuels manquants, dernieres versions GitHub (en tache de fond)
         void refresh()

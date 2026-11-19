@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # Backline (NINE HANDS | DSP), anciennement Plugin manager : application Windows / macOS qui compare les VST3 installes
 # dans un dossier aux dernieres versions publiees sur GitHub, et les installe ou les met a jour.
-project(PluginManager VERSION 1.3.0)
+project(PluginManager VERSION 1.3.1)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,7 +30,7 @@ else()
   include(FetchContent)
   FetchContent_Declare(NhSession
     GIT_REPOSITORY https://github.com/Nine-Hands-Dsp/Session.git
-    GIT_TAG 3250bc5beb9749bd5cb43b6d3eb977fa86b19a22
+    GIT_TAG 919269a65f8765f597ab08a68356e612ef1629e1
     SOURCE_SUBDIR "sources-only")      # sources seulement (pas l'application Session)
   FetchContent_MakeAvailable(NhSession)
   set(SESSION_SRC "${nhsession_SOURCE_DIR}/Source")
