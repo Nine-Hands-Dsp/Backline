@@ -30,7 +30,7 @@ else()
   include(FetchContent)
   FetchContent_Declare(NhSession
     GIT_REPOSITORY https://github.com/Nine-Hands-Dsp/Session.git
-    GIT_TAG f39a1958b4d5cb1d89bab1786a1a8e0b37eebf74
+    GIT_TAG 3250bc5beb9749bd5cb43b6d3eb977fa86b19a22
     SOURCE_SUBDIR "sources-only")      # sources seulement (pas l'application Session)
   FetchContent_MakeAvailable(NhSession)
   set(SESSION_SRC "${nhsession_SOURCE_DIR}/Source")
