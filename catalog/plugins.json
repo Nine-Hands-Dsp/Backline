@@ -1,5 +1,5 @@
 {
-  "date": "18 novembre 2026",
+  "date": "19 novembre 2026",
   "familles": [
     {
       "id": "sat",
@@ -595,6 +595,19 @@
       "notice": "https://github.com/Nine-Hands-Dsp/audiotape/releases/latest/download/Tolana-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T02:37:04+01:00",
+      "sortie_version": "1.0.0"
+    },
+    {
+      "nom": "509",
+      "version": "1.0.0",
+      "famille": "fil",
+      "description": "Tranche de console série 500 : PreMix, CompMix, QMix et LMix réunis avec leurs moteurs d'origine, dans l'ordre de votre choix, avec TRIM, vumètres, VU d'Anode et presets de tranche.",
+      "depot": "509",
+      "windows": "https://github.com/Nine-Hands-Dsp/509/releases/latest/download/509-VST3-Windows.zip",
+      "macos": "https://github.com/Nine-Hands-Dsp/509/releases/latest/download/509-VST3-macOS.zip",
+      "notice": "https://github.com/Nine-Hands-Dsp/509/releases/latest/download/509-Notice.pdf",
+      "type": "studio",
+      "sortie": "2026-11-19T01:45:00+01:00",
       "sortie_version": "1.0.0"
     }
   ]
