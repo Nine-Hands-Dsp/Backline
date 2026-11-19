@@ -622,6 +622,19 @@
       "type": "studio",
       "sortie": "2026-11-19T01:45:00+01:00",
       "sortie_version": "1.0.0"
+    },
+    {
+      "nom": "Space Sonar 209",
+      "version": "1.0.0",
+      "famille": "dly",
+      "description": "Écho à bande et réverbe à ressorts d'après la Roland RE-201 Space Echo : 3 têtes, sélecteur 12 modes, glissement de hauteur, auto-oscillation, bande usée, LFO de vitesse, synchro.",
+      "depot": "space-sonar-209",
+      "windows": "https://github.com/Nine-Hands-Dsp/space-sonar-209/releases/latest/download/SpaceSonar209-VST3-Windows.zip",
+      "macos": "https://github.com/Nine-Hands-Dsp/space-sonar-209/releases/latest/download/SpaceSonar209-VST3-macOS.zip",
+      "notice": "https://github.com/Nine-Hands-Dsp/space-sonar-209/releases/latest/download/SpaceSonar209-Notice.pdf",
+      "type": "guitar",
+      "sortie": "2026-11-19T15:15:00+01:00",
+      "sortie_version": "1.0.0"
     }
   ]
 }
