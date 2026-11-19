@@ -35,6 +35,19 @@
       "id": "out",
       "titre": "Outils",
       "couleur": "#C9C9C9"
+    },
+    {
+      "nom": "Grinder",
+      "version": "1.0.0",
+      "famille": "fil",
+      "description": "Compresseur « classic knee » façon Distressor : 8 ratios du 1:1 au NUKE, détecteur et modes audio commutables, distorsion harmonique 2 ou 3, HR, MIX et options Brit / Image Link.",
+      "depot": "distress",
+      "windows": "https://github.com/Nine-Hands-Dsp/distress/releases/latest/download/Grinder-VST3-Windows.zip",
+      "macos": "https://github.com/Nine-Hands-Dsp/distress/releases/latest/download/Grinder-VST3-macOS.zip",
+      "notice": "https://github.com/Nine-Hands-Dsp/distress/releases/latest/download/Grinder-Notice.pdf",
+      "type": "studio",
+      "sortie": "2026-11-19T14:52:00+01:00",
+      "sortie_version": "1.0.0"
     }
   ],
   "plugins": [
