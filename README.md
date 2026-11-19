@@ -36,6 +36,13 @@
 - **Mise à jour automatique** : à chaque démarrage, l'application consulte sa propre dernière version sur GitHub. S'il y en a une plus récente, elle la télécharge (après les installations en cours), se ferme et se rouvre toute seule sur la nouvelle version.
 - Fermer le DAW avant de mettre à jour un plugin qu'il utilise.
 
+## Onglet Session : partager un projet REAPER
+
+L'onglet **Session** (à droite de **Plugins**, en haut) reprend l'application [Session](https://github.com/Nine-Hands-Dsp/Session) :
+
+- **Export a project** : choisir un projet REAPER enregistré (`.rpp`, ou un projet récent) ; Session le range dans un fichier `.nhsession` avec ses fichiers audio, les captures NAM d'Ampire, les IR d'Impulse et les presets des plugins NINE HANDS | DSP utilisés.
+- **Import a session** : ouvrir le `.nhsession` reçu, vérifier les plugins nécessaires (installés en vert, à mettre à jour en orange, absents en rouge : onglet Plugins pour les installer), choisir les dossiers du projet, des captures NAM et des IR, puis **Import session**. Le projet s'ouvre dans REAPER et Ampire / Impulse retrouvent les captures et IR installées.
+
 ## Fonctionnement
 
 - **Plugins installés** : `Contents/Resources/moduleinfo.json` de chaque `.vst3` (nom, version, fabricant), sinon `Info.plist` (macOS) ou la version du fichier (Windows). Les plugins d'autres fabricants sont ignorés.

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # Backline (NINE HANDS | DSP), anciennement Plugin manager : application Windows / macOS qui compare les VST3 installes
 # dans un dossier aux dernieres versions publiees sur GitHub, et les installe ou les met a jour.
-project(PluginManager VERSION 1.2.3)
+project(PluginManager VERSION 1.3.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,21 @@ else()
   FetchContent_MakeAvailable(JUCE)
 endif()
 
+# Session (NINE HANDS | DSP) : moteur et fenetre d'export / import de projets REAPER, pour l'onglet Session.
+# Copie locale : -DSESSION_DIR=<clone de Nine-Hands-Dsp/Session>
+set(SESSION_DIR "" CACHE PATH "Copie locale du depot Session (optionnel)")
+if(SESSION_DIR AND EXISTS "${SESSION_DIR}/Source/SessionCore.cpp")
+  set(SESSION_SRC "${SESSION_DIR}/Source")
+else()
+  include(FetchContent)
+  FetchContent_Declare(NhSession
+    GIT_REPOSITORY https://github.com/Nine-Hands-Dsp/Session.git
+    GIT_TAG f39a1958b4d5cb1d89bab1786a1a8e0b37eebf74
+    SOURCE_SUBDIR "sources-only")      # sources seulement (pas l'application Session)
+  FetchContent_MakeAvailable(NhSession)
+  set(SESSION_SRC "${nhsession_SOURCE_DIR}/Source")
+endif()
+
 juce_add_gui_app(PluginManager
   PRODUCT_NAME "Backline"
   VERSION ${PROJECT_VERSION}
@@ -30,7 +45,9 @@ juce_add_gui_app(PluginManager
 
 target_sources(PluginManager PRIVATE
   Source/Main.cpp
-  Source/Platform.cpp)
+  Source/Platform.cpp
+  ${SESSION_SRC}/SessionCore.cpp)
+target_include_directories(PluginManager PRIVATE ${SESSION_SRC})
 
 file(GLOB CATALOG_IMAGES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/catalog/img/*.jpg)
 juce_add_binary_data(PMData SOURCES
@@ -53,6 +70,10 @@ target_link_libraries(PluginManager PRIVATE
   PMData
   juce::juce_core
   juce::juce_events
+  juce::juce_data_structures
+  juce::juce_audio_basics
+  juce::juce_audio_formats
+  juce::juce_cryptography
   juce::juce_graphics
   juce::juce_gui_basics
   juce::juce_recommended_config_flags

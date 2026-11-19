@@ -1,6 +1,7 @@
 #pragma once
 #include "Catalog.h"
 #include "NineHandsMenu.h"
+#include "SessionView.h"
 #include <deque>
 #include <thread>
 
@@ -183,10 +184,23 @@ namespace pm
             viewport.getVerticalScrollBar().setColour (ScrollBar::thumbColourId, kFaint);
             list.owner = this;
 
+            // onglet Session : export / import de projets REAPER (code partage avec l'application Session)
+            sessionView = std::make_unique<nhs::SessionView> (nhs::Fonts { fo.reg, fo.med, fo.bold }, false);
+            sessionView->versionOf = [this] (const String& name)
+            {
+                for (auto& p : cat.plugins)
+                    if (normalise (p.name) == normalise (name)) return p.isInstalled() ? (p.installedVersion.isNotEmpty() ? p.installedVersion : String ("?")) : String();
+                return nhs::installedPluginVersion (name, folder);
+            };
+            sessionView->onClose = [] { JUCEApplication::getInstance()->systemRequestedQuit(); };
+            addChildComponent (*sessionView);
+            tab = jlimit (0, 1, settings().getIntValue ("tab", 0));
+
             cleanAfterUpdate();
             if (JUCEApplicationBase::getCommandLineParameters().contains ("--after-update"))
                 status = "Backline updated to v" APP_VERSION;
             setSize (1440, 900);
+            setTab (tab);
             if (folder.getFullPathName().isNotEmpty()) { scan (cat, folder); refresh(); }
             else MessageManager::callAsync ([sp = SafePointer<ManagerView> (this)] { if (sp != nullptr) sp->askFolder (true); });
             startTimerHz (20);
@@ -210,6 +224,9 @@ namespace pm
                 g.setImageResamplingQuality (Graphics::highResamplingQuality);
                 g.drawImage (logo, logoRect(), RectanglePlacement::xLeft | RectanglePlacement::yMid);
             }
+
+            drawTabs (g);
+            if (tab == 1) return;           // onglet Session : la vue Session dessine le reste
 
             // recherche
             const auto sr = searchRect().toFloat();
@@ -241,11 +258,14 @@ namespace pm
             g.setColour (kDim); g.setFont (pf (fo.reg, 13.0f));
             g.drawText (String (inst) + " installed / " + String ((int) cat.plugins.size()), Rectangle<float> (sx, (float) row2Y, 200.0f, 30.0f), Justification::centredLeft);
 
-            // systeme
+            // systeme (masque si la place manque)
             const auto osr = osRect().toFloat();
+            if (osr.getX() > sx + GlyphArrangement::getStringWidth (pf (fo.reg, 13.0f), String (inst) + " installed / " + String ((int) cat.plugins.size())) + 16.0f)
+            {
             g.setColour (kAccent); g.drawRoundedRectangle (osr.reduced (0.5f), 12.0f, 1.0f);
             g.setFont (pf (fo.reg, 11.5f));
             g.drawText (String (isMac ? "macOS" : "Windows") + "  -  VST3", osr, Justification::centred);
+            }
 
             // pied
             g.setColour (kSep); g.fillRect (0, getHeight() - footerH, getWidth(), 1);
@@ -254,6 +274,7 @@ namespace pm
 
         void resized() override
         {
+            if (sessionView != nullptr) sessionView->setBounds (getLocalBounds().withTrimmedTop (listTop - 6));
             search.setBounds (searchRect().reduced (2));
             viewport.setBounds (getLocalBounds().withTrimmedTop (listTop).withTrimmedBottom (footerH).withTrimmedLeft (margin).withTrimmedRight (6));
             layoutList();
@@ -347,7 +368,46 @@ namespace pm
             return { margin, row2Y, w, 30 };
         }
         Rectangle<int> changeRect() const { auto f = folderRect(); return { f.getRight() - 6 - 108, f.getY() + 4, 108, 22 }; }
-        Rectangle<int> osRect() const { return { getWidth() - margin - 140, row2Y + 3, 140, 24 }; }
+        Rectangle<int> osRect() const { return { (int) tabsRect().getX() - 14 - 140, row2Y + 3, 140, 24 }; }
+
+        //------------------------------------------------------------------ onglets Plugins / Session
+        std::unique_ptr<nhs::SessionView> sessionView;
+        int tab = 0;
+        Rectangle<float> tabsRect() const { return { (float) getWidth() - margin - 214.0f, (float) row2Y, 214.0f, 30.0f }; }
+        Rectangle<float> tabRect (int i) const { auto r = tabsRect().reduced (3.0f); return i == 0 ? r.removeFromLeft (r.getWidth() * 0.5f) : r.removeFromRight (r.getWidth() * 0.5f); }
+        void drawTabs (Graphics& g)
+        {
+            const auto all = tabsRect();
+            g.setColour (kHover); g.fillRoundedRectangle (all, 6.0f);
+            g.setColour (kBorder); g.drawRoundedRectangle (all.reduced (0.5f), 6.0f, 1.0f);
+            const char* names[] = { "Plugins", "Session" };
+            for (int i = 0; i < 2; ++i)
+            {
+                const auto r = tabRect (i);
+                const bool on = i == tab, hot = hotHeader == 400 + i;
+                if (on) { g.setColour (kAccent); g.fillRoundedRectangle (r, 4.0f); }
+                else if (hot) { g.setColour (kHover.brighter (0.12f)); g.fillRoundedRectangle (r, 4.0f); }
+                const float iw = 15.0f, tw = GlyphArrangement::getStringWidth (pf (fo.med, 13.0f), names[i]);
+                const float x = r.getCentreX() - (iw + 7.0f + tw) * 0.5f;
+                const auto ic = on ? kInk : kDim;
+                const auto ir = Rectangle<float> (iw, iw).withPosition (x, r.getCentreY() - iw * 0.5f);
+                if (i == 0) Ico::type (g, "guitare", ir, ic);
+                else nhs::ui::icon (g, nhs::ui::icoExport, ir, ic, 2.0f);
+                g.setColour (on ? kInk : kText); g.setFont (pf (fo.med, 13.0f));
+                g.drawText (names[i], Rectangle<float> (x + iw + 7.0f, r.getY(), tw + 4.0f, r.getHeight()), Justification::centredLeft, false);
+            }
+        }
+        void setTab (int t)
+        {
+            tab = jlimit (0, 1, t);
+            settings().setValue ("tab", tab); settings().saveIfNeeded();
+            const bool s = tab == 1;
+            sessionView->setVisible (s);
+            search.setVisible (! s);
+            viewport.setVisible (! s);
+            if (s) sessionView->refreshPluginStatus();
+            repaint();
+        }
 
         void drawSegments (Graphics& g, const std::vector<Seg>& segs, int sel, bool updOrange)
         {
@@ -886,7 +946,7 @@ namespace pm
             if (checkedAt.toMilliseconds() == 0 && ! checking) refresh();
         }
 
-        void rescan() { scan (cat, folder); layoutList(); resized(); repaint(); }
+        void rescan() { scan (cat, folder); layoutList(); resized(); repaint(); if (sessionView != nullptr) sessionView->repaint(); }
 
         // liste en ligne, visuels manquants, dernieres versions GitHub (en tache de fond)
         void refresh()
@@ -953,6 +1013,8 @@ namespace pm
         //------------------------------------------------------------------ souris (en-tete et pied)
         int headerHit (Point<float> p) const
         {
+            for (int i = 0; i < 2; ++i) if (tabRect (i).contains (p)) return 400 + i;
+            if (tab == 1) return -1;
             const auto ss = statusSegs();
             for (int i = 0; i < (int) ss.size(); ++i) if (ss[(size_t) i].second.contains (p)) return i;
             const auto ts = typeSegs();
@@ -972,6 +1034,7 @@ namespace pm
         void mouseUp (const MouseEvent& e) override
         {
             const int h = headerHit (e.position);
+            if (h == 400 || h == 401) { setTab (h - 400); return; }
             if (h >= 0 && h < 10) { statusFilter = h; settings().setValue ("statusFilter", h); }
             else if (h >= 10 && h < 20) { typeFilter = h - 10; settings().setValue ("typeFilter", h - 10); }
             else if (h == 100) chooseFolder();
@@ -985,6 +1048,7 @@ namespace pm
 
         void timerCallback() override
         {
+            if (tab == 1) return;
             if (current().isNotEmpty() || checking || appUpdating) { repaint (0, getHeight() - footerH, getWidth(), footerH); list.repaint(); }
         }
 
