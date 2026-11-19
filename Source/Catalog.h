@@ -89,7 +89,7 @@ namespace pm
 
     struct Plugin
     {
-        String name, catalogVersion, family, desc, repo, urlWin, urlMac, notice, type, released;
+        String name, catalogVersion, family, desc, repo, urlWin, urlMac, notice, type, released, imgHash;
         String latest;              // version de la derniere Release GitHub (vide tant qu'elle n'est pas connue)
         String installedVersion;    // vide : pas installe
         File bundle;                // .vst3 trouve dans le dossier
@@ -136,6 +136,7 @@ namespace pm
                 e.desc = p["description"].toString(); e.repo = p["depot"].toString(); e.urlWin = p["windows"].toString();
                 e.urlMac = p["macos"].toString(); e.notice = p["notice"].toString(); e.type = p.getProperty ("type", "guitare").toString();
                 e.released = p.getProperty ("sortie", "").toString();
+                e.imgHash = p.getProperty ("imgHash", "").toString();     // empreinte de la vignette (tools/sync_catalog.py)
                 if (e.name.isNotEmpty() && e.repo.isNotEmpty()) plugins.push_back (e);
             }
             return true;

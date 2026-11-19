@@ -49,7 +49,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Octopus/releases/latest/download/Octopus-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-17T01:07:44+01:00",
-      "sortie_version": "1.18.93"
+      "sortie_version": "1.18.93",
+      "imgHash": "b41b54a38ecb"
     },
     {
       "nom": "Ampire",
@@ -62,7 +63,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Ampire/raw/main/docs/Ampire_Notice_FR_v1.2.1.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:43:29+01:00",
-      "sortie_version": "1.3.0"
+      "sortie_version": "1.3.0",
+      "imgHash": "b6e003b70ae9"
     },
     {
       "nom": "Anode",
@@ -75,7 +77,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Anode/releases/latest/download/Anode-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:55:28+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "65abc4ef3eda"
     },
     {
       "nom": "ARC",
@@ -88,7 +91,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/ARC/releases/latest/download/Arc-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:19:35+01:00",
-      "sortie_version": "3.3.0"
+      "sortie_version": "3.3.0",
+      "imgHash": "0858052e4098"
     },
     {
       "nom": "Chroma",
@@ -101,11 +105,12 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Chroma/releases/latest/download/Chroma-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:31:47+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "a065aaf52b64"
     },
     {
       "nom": "Coilmines",
-      "version": "1.6.0",
+      "version": "1.8.4",
       "famille": "fil",
       "description": "Modélisation de micros : remplace le micro de la guitare par l'un de 57 micros chiffrés, avec profil de ton micro (par le jeu ou par une oreillette) et guitares enregistrées.",
       "depot": "Coilmines",
@@ -114,7 +119,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Coilmines/releases/latest/download/Coilmines-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-17T01:07:28+01:00",
-      "sortie_version": "1.6.0"
+      "sortie_version": "1.8.4",
+      "imgHash": "eaf66a5f3f7b"
     },
     {
       "nom": "Crycat",
@@ -127,7 +133,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Crycat/releases/latest/download/Crycat-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:20:13+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "ab2fd5d72922"
     },
     {
       "nom": "Darkbass",
@@ -140,7 +147,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Darkbass/releases/latest/download/Darkbass-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:53:40+01:00",
-      "sortie_version": "1.3.0"
+      "sortie_version": "1.3.0",
+      "imgHash": "f1dcce9a2e9e"
     },
     {
       "nom": "Doorn",
@@ -153,7 +161,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Doorn/releases/latest/download/Doorn-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:47:51+01:00",
-      "sortie_version": "4.3.0"
+      "sortie_version": "4.3.0",
+      "imgHash": "f54efd82e00b"
     },
     {
       "nom": "Echoflex",
@@ -166,7 +175,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/EchoFlex/releases/latest/download/Echoflex-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:14:01+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "69febcb564f7"
     },
     {
       "nom": "Eight Echo",
@@ -179,7 +189,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Echo-Eight/releases/latest/download/EightEcho-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:16:07+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "427ed6db059a"
     },
     {
       "nom": "Fantomine",
@@ -192,7 +203,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Fantomine/releases/latest/download/Fantomine-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:03:40+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "e0b2ffa0fc6f"
     },
     {
       "nom": "FOG Z",
@@ -205,7 +217,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/FOG2/releases/latest/download/FogZ-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:00:50+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "7c5d479b81f0"
     },
     {
       "nom": "FreakOut",
@@ -218,7 +231,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Freakout/releases/latest/download/FreakOut-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:06:41+01:00",
-      "sortie_version": "1.5.0"
+      "sortie_version": "1.5.0",
+      "imgHash": "62f1d223cfd0"
     },
     {
       "nom": "Freeze Shimmer",
@@ -231,7 +245,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Freeze-Shimmer/releases/latest/download/FreezeShimmer-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:29:53+01:00",
-      "sortie_version": "1.6.0"
+      "sortie_version": "1.6.0",
+      "imgHash": "45de03cff374"
     },
     {
       "nom": "Holyverb",
@@ -244,7 +259,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Holyverb/releases/latest/download/Holyverb-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:08:30+01:00",
-      "sortie_version": "1.8.0"
+      "sortie_version": "1.8.0",
+      "imgHash": "fa579e624007"
     },
     {
       "nom": "Lascaux",
@@ -257,7 +273,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Lascaux/releases/latest/download/Lascaux-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T02:20:05+01:00",
-      "sortie_version": "1.1.0"
+      "sortie_version": "1.1.0",
+      "imgHash": "b6f2f7605e26"
     },
     {
       "nom": "Impulse",
@@ -270,7 +287,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Impulse/releases/latest/download/Impulse-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:46:41+01:00",
-      "sortie_version": "1.7.0"
+      "sortie_version": "1.7.0",
+      "imgHash": "858947d44c3d"
     },
     {
       "nom": "Ngate",
@@ -283,11 +301,12 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Ngate/releases/latest/download/Ngate-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:10:19+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "5013cbe2e349"
     },
     {
       "nom": "Omi",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "famille": "pit",
       "description": "Convertisseur guitare vers MIDI d'après le Roland GI-20 : crée la piste du VST de basse dans REAPER, suivi des 7 et 8 cordes jusqu'à A0.",
       "depot": "Omi",
@@ -295,8 +314,9 @@
       "macos": "https://github.com/Nine-Hands-Dsp/Omi/releases/latest/download/Omi-VST3-macOS.zip",
       "notice": "https://github.com/Nine-Hands-Dsp/Omi/releases/latest/download/Omi-Notice.pdf",
       "type": "guitare",
-      "sortie": "2026-11-16T21:36:45+01:00",
-      "sortie_version": "1.0.8"
+      "sortie": "2026-11-18T23:06:55+01:00",
+      "sortie_version": "1.0.9",
+      "imgHash": "51396c6d93b1"
     },
     {
       "nom": "Peachy",
@@ -309,7 +329,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Peachy/releases/latest/download/Peachy-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:41:56+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "37dcd2a560ed"
     },
     {
       "nom": "Phase 90",
@@ -322,7 +343,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Phase-90/releases/latest/download/Phase90-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:00:12+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "e2a191729b47"
     },
     {
       "nom": "Pipeline",
@@ -335,7 +357,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Pipeline/releases/latest/download/Pipeline-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:17:47+01:00",
-      "sortie_version": "1.8.0"
+      "sortie_version": "1.8.0",
+      "imgHash": "fa46fa52afee"
     },
     {
       "nom": "Ring Think",
@@ -348,7 +371,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Ring-Think/releases/latest/download/RingThink-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:56:35+01:00",
-      "sortie_version": "3.2.0"
+      "sortie_version": "3.2.0",
+      "imgHash": "0db40480bc4c"
     },
     {
       "nom": "Screamer",
@@ -361,7 +385,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Screamer/releases/latest/download/Screamer-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:49:45+01:00",
-      "sortie_version": "1.5.0"
+      "sortie_version": "1.5.0",
+      "imgHash": "fc14c1426f62"
     },
     {
       "nom": "Semitones",
@@ -374,7 +399,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Semitones/releases/latest/download/Semitones-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:24:18+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "925dbe3c18a7"
     },
     {
       "nom": "Small Tone",
@@ -387,7 +413,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Small-Tone/releases/latest/download/SmallTone-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:58:22+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "8f63d92169b4"
     },
     {
       "nom": "Spindeck",
@@ -400,7 +427,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Spindeck/releases/latest/download/Spindeck-Notice.pdf",
       "type": "instrument",
       "sortie": "2026-11-16T23:47:11+01:00",
-      "sortie_version": "1.1.1"
+      "sortie_version": "1.1.1",
+      "imgHash": "7bcd5d8d5f29"
     },
     {
       "nom": "Strong Pickle",
@@ -413,7 +441,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Strong-Pickle/releases/latest/download/StrongPickle-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T22:51:37+01:00",
-      "sortie_version": "1.7.0"
+      "sortie_version": "1.7.0",
+      "imgHash": "a36f22ed7502"
     },
     {
       "nom": "Synthetika",
@@ -426,7 +455,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Synthetika/releases/latest/download/Synthetika-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:25:01+01:00",
-      "sortie_version": "1.4.0"
+      "sortie_version": "1.4.0",
+      "imgHash": "0faa58a0e073"
     },
     {
       "nom": "Textural",
@@ -439,7 +469,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Textural/releases/latest/download/Textural-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:27:00+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "0853df299c3e"
     },
     {
       "nom": "Wack'd flangerus",
@@ -452,7 +483,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Wack-d/releases/latest/download/Wackd-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:12:05+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "47dfd60dede5"
     },
     {
       "nom": "Wharry",
@@ -465,7 +497,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Wharry/releases/latest/download/Wharry-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-16T23:20:47+01:00",
-      "sortie_version": "2.2.0"
+      "sortie_version": "2.2.0",
+      "imgHash": "f2401143b4f2"
     },
     {
       "nom": "FM-9",
@@ -478,7 +511,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/fm-9/releases/latest/download/FM-9-Notice.pdf",
       "type": "instrument",
       "sortie": "2026-11-18T00:16:17+01:00",
-      "sortie_version": "1.5.2"
+      "sortie_version": "1.5.2",
+      "imgHash": "3bb316ea874b"
     },
     {
       "nom": "QMix",
@@ -491,11 +525,12 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Qmix/releases/latest/download/QMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-17T22:22:27+01:00",
-      "sortie_version": "1.2.4"
+      "sortie_version": "1.2.4",
+      "imgHash": "20628bae2e91"
     },
     {
       "nom": "CompMix",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "famille": "fil",
       "description": "Compresseur optique façon LA-2A / LALA : cellule T4 modélisée, lampes, HF, filtre du détecteur et MIX, plus un mode multibande 4 bandes à graphique.",
       "depot": "CompMix",
@@ -504,7 +539,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/CompMix/releases/latest/download/CompMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-17T22:22:14+01:00",
-      "sortie_version": "1.0.2"
+      "sortie_version": "1.0.2",
+      "imgHash": "794fd20fe425"
     },
     {
       "nom": "LMix",
@@ -517,7 +553,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/LMix/releases/latest/download/LMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-17T22:22:30+01:00",
-      "sortie_version": "1.1.1"
+      "sortie_version": "1.1.1",
+      "imgHash": "8e8fdf877292"
     },
     {
       "nom": "LoudMix",
@@ -530,7 +567,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/MMix/releases/latest/download/LoudMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-17T23:05:08+01:00",
-      "sortie_version": "1.1.0"
+      "sortie_version": "1.1.0",
+      "imgHash": "ce101e5a7d07"
     },
     {
       "nom": "MasterMix",
@@ -543,11 +581,12 @@
       "notice": "https://github.com/Nine-Hands-Dsp/MasterMix/releases/latest/download/MasterMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T01:46:47+01:00",
-      "sortie_version": "1.4.0"
+      "sortie_version": "1.4.0",
+      "imgHash": "3a77661148ae"
     },
     {
       "nom": "PreMix",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "famille": "sat",
       "description": "Préampli de console façon KONSOL : six consoles (Tube, Transistor, Op-Amp, Neve VR Legend, SSL 4000 G, Digital), modes Track / Bus, transformateur, HPF et correcteurs propres à chaque console.",
       "depot": "PreMix",
@@ -556,7 +595,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/PreMix/releases/latest/download/PreMix-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-17T23:10:38+01:00",
-      "sortie_version": "1.0.2"
+      "sortie_version": "1.0.2",
+      "imgHash": "c1d4e02d78bd"
     },
     {
       "nom": "Timeless",
@@ -569,7 +609,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Timeless/releases/latest/download/Timeless-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T00:27:08+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "a37b2baa5e1a"
     },
     {
       "nom": "Backdraft",
@@ -582,7 +623,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Backdraft/releases/latest/download/Backdraft-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T01:36:03+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "47346ea46bb0"
     },
     {
       "nom": "Tolana",
@@ -595,7 +637,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/audiotape/releases/latest/download/Tolana-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-18T02:37:04+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "b7b2958ef1a0"
     },
     {
       "nom": "509",
@@ -608,7 +651,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/509/releases/latest/download/509-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-19T01:45:00+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "c3e4875aa962"
     },
     {
       "nom": "Space Sonar 209",
@@ -621,7 +665,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Space-Sonar-209/releases/latest/download/SpaceSonar209-Notice.pdf",
       "type": "guitar",
       "sortie": "2026-11-19T15:15:00+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "7b8cadfe6b0f"
     },
     {
       "nom": "Grinder",
@@ -634,7 +679,8 @@
       "notice": "https://github.com/Nine-Hands-Dsp/Grinder/releases/latest/download/Grinder-Notice.pdf",
       "type": "studio",
       "sortie": "2026-11-19T14:52:00+01:00",
-      "sortie_version": "1.0.0"
+      "sortie_version": "1.0.0",
+      "imgHash": "a42b2143f9be"
     }
   ]
 }

@@ -959,7 +959,7 @@ namespace pm
             SafePointer<ManagerView> self (this);
             checker = std::thread ([this, self, repos]
             {
-                String json; StringArray names = repos;
+                String json; StringArray names = repos; bool newImages = false;
                 {
                     const auto t = Net::getText (kRaw + "plugins.json");
                     Catalog c;
@@ -970,9 +970,18 @@ namespace pm
                         {
                             names.add (p.repo);
                             const auto img = Catalog::imageCache().getChildFile (p.repo + ".jpg");
+                            const auto hashFile = Catalog::imageCache().getChildFile (p.repo + ".hash");
+                            const auto url = kRaw + "img/" + URL::addEscapeChars (p.repo, false) + ".jpg";
                             int n = 0;
-                            if (! stopFlag && ! img.existsAsFile() && resource (p.repo + ".jpg", n) == nullptr)
-                                Net::getFile (kRaw + "img/" + URL::addEscapeChars (p.repo, false) + ".jpg", img);
+                            if (stopFlag) continue;
+                            if (p.imgHash.isNotEmpty())
+                            {
+                                // vignette changee dans la liste en ligne : on la retelecharge
+                                if (hashFile.loadFileAsString().trim() != p.imgHash && Net::getFile (url, img))
+                                { hashFile.replaceWithText (p.imgHash); newImages = true; }
+                            }
+                            else if (! img.existsAsFile() && resource (p.repo + ".jpg", n) == nullptr)
+                                newImages |= Net::getFile (url, img);
                         }
                     }
                 }
@@ -990,7 +999,7 @@ namespace pm
                     while (pool.getNumJobs() > 0) Thread::sleep (30);
                 }
                 const auto app = stopFlag ? String() : Net::latestTag (kAppRepo);
-                MessageManager::callAsync ([sp = self, json, tags, app]
+                MessageManager::callAsync ([sp = self, json, tags, app, newImages]
                 {
                     if (sp == nullptr) return;
                     if (json.isNotEmpty() && json != Catalog::cacheFile().loadFileAsString())
@@ -998,6 +1007,8 @@ namespace pm
                         Catalog::cacheFile().replaceWithText (json);
                         sp->cat.loadLocal();
                     }
+                    else if (newImages)
+                        for (auto& p : sp->cat.plugins) p.image = Catalog::loadImage (p.repo);
                     int ok = 0;
                     for (auto& p : sp->cat.plugins)
                         if (auto it = tags.find (p.repo); it != tags.end() && it->second.isNotEmpty()) { p.latest = it->second; ++ok; }
