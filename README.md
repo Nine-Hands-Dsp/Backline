@@ -48,15 +48,19 @@ L'onglet **Session** (à droite de **Plugins**, en haut) reprend l'application [
 - **Plugins installés** : `Contents/Resources/moduleinfo.json` de chaque `.vst3` (nom, version, fabricant), sinon `Info.plist` (macOS) ou la version du fichier (Windows). Les plugins d'autres fabricants sont ignorés.
 - **Dernières versions** : la Release `latest` de chaque dépôt `Nine-Hands-Dsp/<dépôt>`.
 - **Téléchargements** : `releases/latest/download/<Plugin>-VST3-Windows.zip` / `-macOS.zip` de chaque dépôt.
-- **Liste des plugins** : `catalog/plugins.json` et `catalog/img/<dépôt>.jpg`, copiés du dépôt Download. L'application lit la liste en ligne à chaque démarrage (nouveaux plugins visibles sans nouvelle version de l'application) et garde une copie intégrée.
+- **Liste des plugins** : `catalog/plugins.json` et `catalog/img/<dépôt>.jpg`, seule liste des plugins NINE HANDS | DSP (la page « Download » est abandonnée). L'application lit la liste en ligne à chaque démarrage (nouveaux plugins et nouvelles vignettes visibles sans nouvelle version de l'application) et garde une copie intégrée.
 
-## Mise à jour de la liste (à chaque nouvelle version d'un plugin ou nouveau plugin)
+## Mise à jour de la liste
 
-Après la mise à jour du dépôt Download :
+- **Nouvelle version d'un plugin** : rien à faire (Backline lit la Release `latest` de chaque dépôt).
+- **Nouveau plugin** : ajouter son entrée dans `catalog/plugins.json` et sa vignette `catalog/img/<dépôt>.jpg`.
+- **Nouveau visuel d'un plugin** : remplacer sa vignette (fond noir, 480 px de haut, pédale de ~447 px de haut avec ses jacks, marges ~25 px). `tools/update_catalog.py --thumb <dépôt> <notice.pdf>` en fait une à partir de la page de garde de la notice (à vérifier à l'œil).
+
+Puis, dans tous les cas :
 
 ```
-python3 tools/sync_catalog.py <chemin du dépôt Download>
-git add catalog && git commit -m "Liste des plugins" && git push
+python3 tools/update_catalog.py      # empreinte imgHash des vignettes : Backline retélécharge celles qui ont changé
+git add catalog && git commit -m "Catalogue : ... [skip ci]" && git push
 ```
 
 ## Build
