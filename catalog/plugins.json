@@ -642,7 +642,7 @@
     },
     {
       "nom": "509",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "famille": "fil",
       "description": "Tranche de console série 500 : PreMix, CompMix, QMix et LMix réunis avec leurs moteurs d'origine, dans l'ordre de votre choix, avec TRIM, vumètres, VU d'Anode et presets de tranche.",
       "depot": "509",
