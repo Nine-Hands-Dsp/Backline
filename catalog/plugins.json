@@ -110,17 +110,17 @@
     },
     {
       "nom": "Coilmines",
-      "version": "1.8.4",
+      "version": "1.9.3",
       "famille": "fil",
-      "description": "Modélisation de micros : remplace le micro de la guitare par l'un de 57 micros chiffrés, avec profil de ton micro (par le jeu ou par une oreillette) et guitares enregistrées.",
+      "description": "Modélisation de micros : remplace le micro de la guitare par l'un de 68 micros chiffrés, avec profil de ton micro (par le jeu ou par une oreillette) et guitares enregistrées.",
       "depot": "Coilmines",
       "windows": "https://github.com/Nine-Hands-Dsp/Coilmines/releases/latest/download/Coilmines-VST3-Windows.zip",
       "macos": "https://github.com/Nine-Hands-Dsp/Coilmines/releases/latest/download/Coilmines-VST3-macOS.zip",
       "notice": "https://github.com/Nine-Hands-Dsp/Coilmines/releases/latest/download/Coilmines-Notice.pdf",
       "type": "guitare",
       "sortie": "2026-11-17T01:07:28+01:00",
-      "sortie_version": "1.8.4",
-      "imgHash": "eaf66a5f3f7b"
+      "sortie_version": "1.9.3",
+      "imgHash": "ac2812ac650b"
     },
     {
       "nom": "Crycat",
