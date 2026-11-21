@@ -1,5 +1,5 @@
 {
-  "date": "20 novembre 2026",
+  "date": "21 novembre 2026",
   "familles": [
     {
       "id": "sat",
@@ -681,6 +681,20 @@
       "sortie": "2026-11-19T14:52:00+01:00",
       "sortie_version": "1.0.0",
       "imgHash": "a42b2143f9be"
+    },
+    {
+      "nom": "Breath",
+      "version": "1.0.0",
+      "famille": "fil",
+      "description": "Aigus dynamiques façon Fresh Air : MID AIR et HIGH AIR remontent les détails faibles jusqu'à +12 dB et presque pas les aigus forts, de l'air sans dureté, avec écran animé.",
+      "depot": "Breath",
+      "windows": "https://github.com/Nine-Hands-Dsp/Breath/releases/latest/download/Breath-VST3-Windows.zip",
+      "macos": "https://github.com/Nine-Hands-Dsp/Breath/releases/latest/download/Breath-VST3-macOS.zip",
+      "notice": "https://github.com/Nine-Hands-Dsp/Breath/releases/latest/download/Breath-Notice.pdf",
+      "type": "studio",
+      "sortie": "2026-11-21T14:30:00+01:00",
+      "sortie_version": "1.0.0",
+      "imgHash": "219a4100e47d"
     }
   ]
 }
