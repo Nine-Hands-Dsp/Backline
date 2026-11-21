@@ -96,7 +96,12 @@ namespace pm
         Image image;
 
         bool isInstalled() const { return bundle.exists(); }
-        String latestVersion() const { return latest.isNotEmpty() ? latest : catalogVersion; }
+        String latestVersion() const
+        {
+            if (latest.isEmpty()) return catalogVersion;
+            if (catalogVersion.isEmpty()) return latest;
+            return compareVersions (latest, catalogVersion) >= 0 ? latest : catalogVersion; // jamais en dessous du catalogue
+        }
         bool hasUpdate() const
         {
             return isInstalled() && installedVersion.isNotEmpty() && compareVersions (installedVersion, latestVersion()) < 0;
@@ -177,9 +182,11 @@ namespace pm
         {
             return URL::InputStreamOptions (URL::ParameterHandling::inAddress)
                        .withConnectionTimeoutMs (timeoutMs).withNumRedirectsToFollow (redirects)
-                       .withExtraHeaders ("User-Agent: NineHandsBackline/" APP_VERSION "\r\n")
+                       .withExtraHeaders ("User-Agent: NineHandsBackline/" APP_VERSION "\r\nCache-Control: no-cache\r\nPragma: no-cache\r\n")
                        .withResponseHeaders (headers).withStatusCode (status);
         }
+
+        inline String noCache (const String& url) { return url + (url.contains ("?") ? "&" : "?") + "nocache=" + String (Time::currentTimeMillis()); }
 
         inline String getText (const String& url, int timeoutMs = 12000)
         {
@@ -203,12 +210,22 @@ namespace pm
         inline String latestTag (const String& repo)
         {
             StringPairArray headers; int status = 0;
-            auto s = URL ("https://github.com/" + kOwner + "/" + repo + "/releases/latest").createInputStream (opts (0, 10000, &headers, &status));
+            auto s = URL (noCache ("https://github.com/" + kOwner + "/" + repo + "/releases/latest")).createInputStream (opts (0, 10000, &headers, &status));
             String loc;
             for (auto& k : headers.getAllKeys()) if (k.equalsIgnoreCase ("location")) loc = headers[k];
             if (loc.contains ("/tag/")) return cleanVersion (URL::removeEscapeChars (loc.fromLastOccurrenceOf ("/tag/", false, false)));
-            // sinon : API GitHub
-            const auto j = JSON::parse (getText ("https://api.github.com/repos/" + kOwner + "/" + repo + "/releases/latest", 10000));
+            // sinon : flux Atom des Releases (pas de limite d'API), premiere entree = plus recente
+            {
+                const auto atom = getText (noCache ("https://github.com/" + kOwner + "/" + repo + "/releases.atom"), 10000);
+                if (atom.contains ("/releases/tag/"))
+                {
+                    auto t = atom.fromFirstOccurrenceOf ("/releases/tag/", false, false).upToFirstOccurrenceOf ("\"", false, false);
+                    t = cleanVersion (URL::removeEscapeChars (t));
+                    if (t.isNotEmpty()) return t;
+                }
+            }
+            // dernier recours : API GitHub (limitee a 60 requetes par heure)
+            const auto j = JSON::parse (getText (noCache ("https://api.github.com/repos/" + kOwner + "/" + repo + "/releases/latest"), 10000));
             return cleanVersion (j.getProperty ("tag_name", "").toString());
         }
     }

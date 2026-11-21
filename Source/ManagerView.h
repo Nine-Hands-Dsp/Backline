@@ -961,7 +961,7 @@ namespace pm
             {
                 String json; StringArray names = repos; bool newImages = false;
                 {
-                    const auto t = Net::getText (kRaw + "plugins.json");
+                    const auto t = Net::getText (Net::noCache (kRaw + "plugins.json"));
                     Catalog c;
                     if (t.isNotEmpty() && c.parse (t))
                     {
@@ -1060,6 +1060,10 @@ namespace pm
 
         void timerCallback() override
         {
+            // nouvelle verification GitHub toutes les 10 minutes tant que l'application est ouverte et au repos
+            if (! checking && ! appUpdating && current().isEmpty() && queuedCount() == 0 && checkedAt.toMilliseconds() > 0
+                && (Time::getCurrentTime() - checkedAt).inMinutes() >= 10.0)
+                refresh();
             if (tab == 1) return;
             if (current().isNotEmpty() || checking || appUpdating) { repaint (0, getHeight() - footerH, getWidth(), footerH); list.repaint(); }
         }

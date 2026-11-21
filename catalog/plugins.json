@@ -40,7 +40,7 @@
   "plugins": [
     {
       "nom": "Octopus",
-      "version": "1.18.93",
+      "version": "1.18.97",
       "famille": "out",
       "description": "Le centre du système : un écran façon multi-effet qui pilote la chaîne d'effets de la piste REAPER, presets et banks.",
       "depot": "Octopus",
@@ -110,7 +110,7 @@
     },
     {
       "nom": "Coilmines",
-      "version": "1.9.3",
+      "version": "1.9.11",
       "famille": "fil",
       "description": "Modélisation de micros : remplace le micro de la guitare par l'un de 68 micros chiffrés, avec profil de ton micro (par le jeu ou par une oreillette) et guitares enregistrées.",
       "depot": "Coilmines",
@@ -264,7 +264,7 @@
     },
     {
       "nom": "Lascaux",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "famille": "dly",
       "description": "Reverb de studio dans l'esprit de VintageVerb : 29 modes (dont plaque 140, 224, 480, RMX16, M7, chambre d'écho, ressort), couleurs 1970s / 1980s / NOW, écran de déclin selon la fréquence.",
       "depot": "Lascaux",
@@ -502,7 +502,7 @@
     },
     {
       "nom": "FM-9",
-      "version": "1.5.2",
+      "version": "1.5.4",
       "famille": "pit",
       "description": "Synthé FM 6 opérateurs façon DX7 d'après le M-VAVE FM-1, à jouer au clavier maître MIDI.",
       "depot": "FM-9",
@@ -516,7 +516,7 @@
     },
     {
       "nom": "QMix",
-      "version": "1.2.4",
+      "version": "1.2.6",
       "famille": "fil",
       "description": "Égaliseur paramétrique 24 bandes avec analyseur : modes zéro latence, analogique (courbes et couleur SSL 4000 G ou Neve VR) et phase linéaire, bandes dynamiques.",
       "depot": "Qmix",
@@ -530,7 +530,7 @@
     },
     {
       "nom": "CompMix",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "famille": "fil",
       "description": "Compresseur optique façon LA-2A / LALA : cellule T4 modélisée, lampes, HF, filtre du détecteur et MIX, plus un mode multibande 4 bandes à graphique.",
       "depot": "CompMix",
@@ -544,7 +544,7 @@
     },
     {
       "nom": "LMix",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "famille": "fil",
       "description": "Limiteur de mastering true peak garanti : deux enveloppes avec avance et maintien calé sur le grave, 8 styles, suréchantillonnage jusqu'à 32x, multibande à reconstruction parfaite et mesure EBU R128.",
       "depot": "LMix",
@@ -558,7 +558,7 @@
     },
     {
       "nom": "LoudMix",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "famille": "out",
       "description": "Meter de sonie EBU R128 / BS.1770-4 : LUFS intégré, court terme et momentané, LRA, true peak haute précision (< 0,001 dB), PLR, historique comparé à 10 cibles de streaming, spectre mid / side, vectorscope et corrélation.",
       "depot": "MMix",
@@ -572,7 +572,7 @@
     },
     {
       "nom": "MasterMix",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "famille": "fil",
       "description": "Suite de mastering tout-en-un : console, EQ de précision, opto / Vari-Mu / VCA et transformateurs, multibande, imageur, bande, limiteur true peak, et un assistant qui analyse le mix et propose les réglages.",
       "depot": "MasterMix",
@@ -586,7 +586,7 @@
     },
     {
       "nom": "PreMix",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "famille": "sat",
       "description": "Préampli de console façon KONSOL : six consoles (Tube, Transistor, Op-Amp, Neve VR Legend, SSL 4000 G, Digital), modes Track / Bus, transformateur, HPF et correcteurs propres à chaque console.",
       "depot": "PreMix",
@@ -600,7 +600,7 @@
     },
     {
       "nom": "Timeless",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "famille": "dly",
       "description": "Super delay : 12 machines légendaires (Space Echo, Echoplex, Echorec, Memory Man, DM-2, Carbon Copy, DD-3, TC 2290, PCM42, AMS DMX, SDE-3000, H3000), moteur x2 sans latence, têtes, ducking, ping-pong.",
       "depot": "Timeless",
@@ -614,7 +614,7 @@
     },
     {
       "nom": "Backdraft",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "famille": "dly",
       "description": "Riser reverse reverb en un clic façon AtmosRiser : capture ou import d'une phrase, montée calée sur le tempo, anti-sifflantes, 6 effets, glisser-déposer dans la timeline.",
       "depot": "Backdraft",
@@ -628,7 +628,7 @@
     },
     {
       "nom": "Tolana",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "famille": "sat",
       "description": "Magnétophone à bande : studio 30 / 15 IPS, cassette et microcassette, du vernis de mastering au lo-fi usé.",
       "depot": "audiotape",
